@@ -12,7 +12,40 @@
 </head>
 
 <body>
+    <header>
+        <h1>Library</h1>
 
+        <button>+</button>
+    </header>
+
+    <div id="modal-book-form">
+        <h3>Add a Book</h3>
+
+        <form>
+            <div class="input-container">
+                <label for="title">Title</label>
+                <input class="input" type="text" name="title" id="title">
+            </div>
+
+            <div class="input-container">
+                <label for="author">Author</label>
+                <input class="input" type="text" name="author" id="author">
+            </div>
+
+            <div class="input-container">
+                <label for="pages">Pages</label>
+                <input class="input" type="number" name="pages" id="pages">
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="read" id="read">
+                <label for="read" class="unselectable">Have you read it?</label>
+            </div>
+
+            <button type="submit" class="button button--submit">Add</button>
+
+        </form>
+    </div>
 </body>
 
 </html>
