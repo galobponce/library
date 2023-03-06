@@ -15,7 +15,7 @@
     <header>
         <h1>Library</h1>
 
-        <button class="button button--plus">+</button>
+        <button class="button button--plus" id="button--add-book">+</button>
 
     </header>
 
@@ -30,17 +30,17 @@
             <form class="form">
                 <div class="input-container">
                     <label for="title">Title</label>
-                    <input class="input" type="text" name="title" id="title">
+                    <input class="input" type="text" name="title" id="title" required>
                 </div>
 
                 <div class="input-container">
                     <label for="author">Author</label>
-                    <input class="input" type="text" name="author" id="author">
+                    <input class="input" type="text" name="author" id="author" required>
                 </div>
 
                 <div class="input-container">
                     <label for="pages">Pages</label>
-                    <input class="input" type="number" name="pages" id="pages">
+                    <input class="input" type="number" name="pages" id="pages" min="5" required>
                 </div>
 
                 <div class="checkbox-container">
@@ -52,6 +52,11 @@
 
             </form>
         </div>
+
+    </div>
+
+
+    <div id="books-container">
 
     </div>
 </body>
