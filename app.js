@@ -45,6 +45,16 @@ class Library {
 
     removeBookById(bookId) {
         this.books = this.books.filter(book => book.id != bookId);
+
+        this.assignLocalBooksIds();
+    }
+
+
+    toggleReadById(bookId) {
+        this.books = this.books.map(book => {
+            if (book.id == bookId) book.isRead = !book.isRead;
+            return book;
+        });
     }
 
 
@@ -68,6 +78,14 @@ class App {
 
     // Creates event listeners for dom elements
     initialize() {
+        document.addEventListener('keydown', (e) => {
+            if (!this.isModalBookActive) return;
+
+            if (e.key === 'Escape') {
+                this.closeBookModal();
+            }
+        });
+
         $addBookButton.addEventListener('click', () => {
             this.isModalBookActive = true;
             this.openBookModal();
@@ -96,8 +114,12 @@ class App {
                 !!entries['read']
             );
 
+            $modalBookForm.reset();
+
             this.library.addBook(book);
-            this.renderBook(book);
+            this.renderBooks();
+
+            this.closeBookModal();
         });
     }
 
@@ -114,10 +136,70 @@ class App {
     }
 
 
+    renderBooks() {
+        $booksContainer.innerHTML = null; // Clears container
+
+        this.library.getBooks().map(book => {
+            this.renderBook(book);
+        });
+    }
+
+
     renderBook(book) {
-        const $h1 = document.createElement('h1');
-        $h1.textContent = book.title;
-        $booksContainer.appendChild($h1);
+        const $bookCard = document.createElement('div');
+        $bookCard.classList.add('book-card');
+
+        const $bookTitle = document.createElement('h3');
+        $bookTitle.classList.add('book-title');
+        $bookTitle.textContent = book.title;
+        $bookCard.appendChild($bookTitle);
+
+        const $bookAuthor = document.createElement('h4');
+        $bookAuthor.classList.add('book-author');
+        $bookAuthor.textContent = book.author;
+        $bookCard.appendChild($bookAuthor);
+
+        const $bookPages = document.createElement('h4');
+        $bookPages.classList.add('book-pages');
+        $bookPages.textContent = book.pages;
+        $bookCard.appendChild($bookPages);
+
+        const $toggleReadButton = document.createElement('button');
+        $toggleReadButton.classList.add('button', 'button--toggle-read');
+        $toggleReadButton.dataset.bookId = book.id;
+        $toggleReadButton.textContent = book.isRead ? 'Read' : 'Not Read';
+        $toggleReadButton.addEventListener('click', (e) => this.handleToggleReadClick(e));
+        $bookCard.appendChild($toggleReadButton);
+
+        const $removeBookButton = document.createElement('button');
+        $removeBookButton.classList.add('button', 'button--remove');
+        $removeBookButton.dataset.bookId = book.id;
+        $removeBookButton.textContent = 'Remove';
+        $removeBookButton.addEventListener('click', (e) => this.handleRemoveClick(e));
+        $bookCard.appendChild($removeBookButton);
+
+
+        $booksContainer.appendChild($bookCard);
+    }
+
+
+    handleToggleReadClick(e) {
+        const bookId = e.target.dataset.bookId;
+
+        if (bookId) {
+            this.library.toggleReadById(bookId);
+            this.renderBooks();
+        }
+    }
+
+
+    handleRemoveClick(e) {
+        const bookId = e.target.dataset.bookId;
+
+        if (bookId) {
+            this.library.removeBookById(bookId);
+            this.renderBooks();
+        }
     }
 }
 
