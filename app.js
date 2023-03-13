@@ -172,27 +172,31 @@ class App {
 
         const $bookAuthor = document.createElement('h4');
         $bookAuthor.classList.add('book-author');
-        $bookAuthor.textContent = book.author;
+        $bookAuthor.textContent = `Author: ${book.author}`;
         $bookCard.appendChild($bookAuthor);
 
         const $bookPages = document.createElement('h4');
         $bookPages.classList.add('book-pages');
-        $bookPages.textContent = book.pages;
+        $bookPages.textContent = `Pages: ${book.pages}`;
         $bookCard.appendChild($bookPages);
+
+        const $buttonContainer = document.createElement('div');
+        $buttonContainer.classList.add('button-container');
+        $bookCard.appendChild($buttonContainer);
 
         const $toggleReadButton = document.createElement('button');
         $toggleReadButton.classList.add('button', 'button--toggle-read');
         $toggleReadButton.dataset.bookId = book.id;
-        $toggleReadButton.textContent = book.isRead ? 'Read' : 'Not Read';
+        $toggleReadButton.textContent = `Status: ${book.isRead ? 'Read' : 'Not Read'}`;
         $toggleReadButton.addEventListener('click', (e) => this.handleToggleReadClick(e));
-        $bookCard.appendChild($toggleReadButton);
+        $buttonContainer.appendChild($toggleReadButton);
 
         const $removeBookButton = document.createElement('button');
         $removeBookButton.classList.add('button', 'button--remove');
         $removeBookButton.dataset.bookId = book.id;
         $removeBookButton.textContent = 'Remove';
         $removeBookButton.addEventListener('click', (e) => this.handleRemoveClick(e));
-        $bookCard.appendChild($removeBookButton);
+        $buttonContainer.appendChild($removeBookButton);
 
 
         $booksContainer.appendChild($bookCard);
