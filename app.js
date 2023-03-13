@@ -22,7 +22,7 @@ class Book {
 
 class Library {
     constructor() {
-        this.books = [];
+        this.books = this.getBooksFromLocalStorage();
     }
 
 
@@ -40,6 +40,7 @@ class Library {
         this.books = [...this.books, book];
 
         this.assignLocalBooksIds();
+        this.setBooksToLocalStorage();
     }
 
 
@@ -47,6 +48,7 @@ class Library {
         this.books = this.books.filter(book => book.id != bookId);
 
         this.assignLocalBooksIds();
+        this.setBooksToLocalStorage();
     }
 
 
@@ -55,6 +57,8 @@ class Library {
             if (book.id == bookId) book.isRead = !book.isRead;
             return book;
         });
+
+        this.setBooksToLocalStorage();
     }
 
 
@@ -64,6 +68,16 @@ class Library {
         this.books = this.books.map((book, index) => {
             return { ...book, id: index };
         });
+    }
+
+
+    // Local Storage Methods
+    getBooksFromLocalStorage() {
+        return JSON.parse(localStorage.getItem('books'));
+    }
+
+    setBooksToLocalStorage() {
+        localStorage.setItem('books', JSON.stringify(this.books));
     }
 }
 
@@ -121,6 +135,8 @@ class App {
 
             this.closeBookModal();
         });
+
+        this.renderBooks();
     }
 
 
