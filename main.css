@@ -66,6 +66,26 @@ html {
     background-color: #74c4fe;
 }
 
+.button--toggle-read {
+    color: #ffffff;
+    background-color: #63b3ed;
+}
+
+.button--toggle-read:hover {
+    transition: 0.3s;
+    background-color: #74c4fe;
+}
+
+.button--remove {
+    color: #ffffff;
+    background-color: #C53030;
+}
+
+.button--remove:hover {
+    transition: 0.3s;
+    background-color: #E53E3E;
+}
+
 /* End General */
 
 /* Header */
@@ -183,3 +203,54 @@ header {
 }
 
 /* End Modal */
+
+
+
+/* Books section */
+#books-container {
+    margin: 2em;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 2em;
+}
+
+.book-card {
+    padding: 1em;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1em;
+
+    background-color: #1a202c;
+
+    border-radius: 1em;
+}
+
+.book-card .book-title {
+    color: #90cdf4;
+    font-size: 1.5em;
+}
+
+.book-card .book-author {
+    color: #c4ced9;
+}
+
+.book-card .book-pages {
+    color: #c4ced9;
+    font-size: .9em;
+}
+
+.book-card .button-container {
+    width: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+/* End Books section */
